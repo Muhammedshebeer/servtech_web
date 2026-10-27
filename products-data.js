@@ -41,4 +41,33 @@ const catalogs={
 'METAL SINTERED PRODUCTS':['Stainless-Steel Sintered Mesh Filters','Sintered Powder Filter Elements','Multilayer Sintered Filters','Cylindrical Sintered Filter Elements','Threaded Sintered Filter Elements','High-Temperature Metal Filters','Reusable Metal Filter Cartridges','Custom Sintered Filter Elements']}}
 ;
 
-const file=location.pathname.split('/').pop()||'';const catalog=catalogs[file];if(catalog){document.querySelectorAll('.category-list details').forEach(detail=>{const title=(detail.querySelector('summary')?.textContent||'').replace(/^\s*\d+\s*[—-]\s*/,'').trim().toUpperCase();const items=catalog[title];if(!items)return;const target=detail.querySelector('div');if(target)target.innerHTML='<ul class="subproduct-grid">'+items.map(item=>'<li>'+item+'</li>').join('')+'</ul>'})}
+const file=location.pathname.split('/').pop()||'';
+const catalog=catalogs[file];
+const manufacturerCopy={
+  'zhejiang-coosai-valve.html':'Servtech supplies Zhejiang Coosai industrial valves and automation packages for oil and gas, power, water and process applications. Explore the available valve families, then contact our team for material, pressure class, end connection and actuation selection.',
+  'khd-huadu-valve.html':'KHD Huadu offers a broad portfolio of isolation and control valves for industrial piping systems. Servtech supports technical selection and quotation for manual, pneumatic and electric valve configurations.',
+  'lixin-valve.html':'Servtech supplies Lixin valve solutions for critical isolation and flow-control duties, including cast and forged products, cryogenic designs and automated packages.',
+  'rovv-shanghai-rogers.html':'ROVV Shanghai Rogers manufactures industrial valve solutions across ball, gate, globe, check and butterfly categories. Servtech provides regional product support, selection and quotation.',
+  'huahang-filtration.html':'Servtech supplies Huahang industrial filtration products for hydraulic oil, gas separation, compressed air, dust collection and high-temperature process applications.'
+};
+if(catalog){
+  const showcase=document.querySelector('.product-showcase');
+  if(showcase&&!showcase.querySelector('.product-intro')){
+    const intro=document.createElement('p');intro.className='product-intro';intro.textContent=manufacturerCopy[file]||'Contact Servtech for product selection, technical documentation and a project-specific quotation.';showcase.appendChild(intro);
+  }
+  const categories=document.querySelector('.categories');
+  if(categories&&!categories.querySelector('.category-search')){
+    const label=document.createElement('label');label.className='category-search';label.innerHTML='<span>Filter</span><input type="search" aria-label="Filter product categories" placeholder="Search product categories">';categories.querySelector('h2')?.after(label);
+    label.querySelector('input').addEventListener('input',event=>{const query=event.target.value.toLowerCase();document.querySelectorAll('.category-list details').forEach(item=>item.hidden=!item.textContent.toLowerCase().includes(query))});
+  }
+  document.querySelectorAll('.category-list details').forEach(detail=>{
+    const title=(detail.querySelector('summary')?.textContent||'').replace(/^\s*\d+\s*[—-]\s*/,'').trim().toUpperCase();
+    const items=catalog[title];if(!items)return;
+    const target=detail.querySelector('div');if(target)target.innerHTML='<ul class="subproduct-grid">'+items.map(item=>'<li>'+item+'</li>').join('')+'</ul>';
+  });
+  const firstCategory=document.querySelector('.category-list details');
+  if(firstCategory)firstCategory.open=true;
+  if(categories&&!document.querySelector('.product-catalog-cta')){
+    categories.insertAdjacentHTML('afterend','<section class="product-catalog-cta"><div><span class="section-kicker">Project-specific support</span><h2>Need help selecting the right product?</h2><p>Send Servtech your datasheet, pressure class, material, end connection, actuation and delivery requirements.</p></div><a class="btn" href="quote.html">Request a quotation</a></section>');
+  }
+}

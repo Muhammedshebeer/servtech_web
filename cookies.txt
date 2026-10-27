@@ -1,7 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-www.servtech.ae	TRUE	/	FALSE	1999999999	XSRF-TOKEN	1787637562|Kme6B2EYSk9a
-www.servtech.ae	TRUE	/	FALSE	1999999999	sec-fetch-unsupported	1
-www.servtech.ae	TRUE	/	FALSE	1999999999	SameSite	Lax
-www.servtech.ae	TRUE	/	FALSE	1999999999	ssr-caching	cache#desc=miss#varnish=miss_miss#dc#desc=fastly_ireland-phy_g
-
